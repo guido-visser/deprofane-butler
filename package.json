@@ -1,0 +1,15 @@
+{
+  "name": "deprofane-butler",
+  "version": "0.0.1",
+  "description": "A script that will automate the deprofaning of movies and series",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Guido Visser",
+  "license": "MIT",
+  "dependencies": {
+    "jsonfile": "^6.1.0",
+    "yargs": "^17.3.1"
+  }
+}
