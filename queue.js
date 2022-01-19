@@ -1,5 +1,4 @@
 var exec = require("child_process").execFile;
-const jsonfile = require("jsonfile");
 const fs = require("fs");
 
 class Queue {
@@ -27,32 +26,27 @@ class Queue {
       fs.mkdirSync(dir + dirToPut);
     }
 
-    const jsonObj = [
-      "-o",
-      `${dir + "swearless\\" + name}.mkv`,
-      "--language",
-      `${0}:eng`,
-      "--track-name",
-      `${1}:Original`,
-      `${dir + name}${ext}`,
-      "--language",
-      `${0}:eng`,
-      "--track-name",
-      `${1}:Swearless`,
-      "--no-video",
-      `${dir + name}_SL..mp4`,
-      "--default-track",
-      "0",
-    ];
-
-    jsonfile.writeFileSync("./options.json", jsonObj);
-    console.log("Options file created, executing mkvmerge...");
-
-    exec(`./bin/mkvmerge.exe`, ["@options.json"], function (err, data) {
-      console.log(err);
-      console.log(data.toString());
-    }).on("exit", (code, signal) => {
-      console.log("code", code);
+    exec(
+      `./bin/mkvmerge.exe`,
+      [
+        "-o",
+        `${dir + dirToPut + name}.mkv`,
+        "--language",
+        `${0}:eng`,
+        "--track-name",
+        `${1}:Original`,
+        `${dir + name}${ext}`,
+        "--language",
+        `${0}:eng`,
+        "--track-name",
+        `${1}:Swearless`,
+        "--no-video",
+        `${dir + name}_SL..mp4`,
+        "--default-track",
+        "0",
+      ],
+      function (err, data) {}
+    ).on("exit", (code, signal) => {
       //When done, remove from queue and go to the next one.
       this.queue.shift();
       if (this.queue.length > 0) {

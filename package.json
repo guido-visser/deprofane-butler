@@ -9,7 +9,6 @@
   "author": "Guido Visser",
   "license": "MIT",
   "dependencies": {
-    "jsonfile": "^6.1.0",
     "yargs": "^17.3.1"
   }
 }
