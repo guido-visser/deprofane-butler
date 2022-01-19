@@ -40,7 +40,7 @@ if (argv.merge) {
       queue.addItem({ name, ext });
     } else {
       console.log(
-        `No swearless version for ${name} found, please make sure the Swearless file ends with '_SL..mp4'`
+        `No swearless version for "${name}${ext}" found, please make sure the Swearless file ends with '_SL..mp4'`
       );
     }
   });
