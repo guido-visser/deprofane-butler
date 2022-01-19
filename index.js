@@ -24,9 +24,9 @@ if (!argv.d) {
 const dir = !argv.d.endsWith("\\") ? argv.d + "\\" : argv.d;
 
 if (argv.merge) {
+  console.log("Getting all files from given directory");
   const files = fs.readdirSync(dir).filter((file) => !file.endsWith(".srt"));
 
-  //check if the _SL version exists
   let error = null;
   const oriFiles = files.filter((file) => !file.endsWith("_SL..mp4"));
 
@@ -34,10 +34,18 @@ if (argv.merge) {
     const name = file.slice(0, -4);
     const ext = file.slice(name.length);
 
+    //check if the _SL version exists
     if (files.indexOf(name + "_SL..mp4") !== -1) {
+      console.log(`Swearless version for ${name} found! Adding to queue!`);
       queue.addItem({ name, ext });
+    } else {
+      console.log(
+        `No swearless version for ${name} found, please make sure the Swearless file ends with '_SL..mp4'`
+      );
     }
   });
+
+  console.log(`Queue of ${queue.queue.length}, starting the job...`);
 
   queue.run(dir);
 }

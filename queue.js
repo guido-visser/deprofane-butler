@@ -3,6 +3,7 @@ const fs = require("fs");
 
 class Queue {
   queue = [];
+  count = 0;
 
   addItem = (obj) => {
     this.queue.push(obj);
@@ -26,6 +27,10 @@ class Queue {
       fs.mkdirSync(dir + dirToPut);
     }
 
+    this.count++;
+
+    console.log(`Running: Job ${this.count}/${this.queue.length}`);
+
     exec(
       `./bin/mkvmerge.exe`,
       [
@@ -47,12 +52,14 @@ class Queue {
       ],
       function (err, data) {}
     ).on("exit", (code, signal) => {
+      console.log(`Job ${this.count}/${this.queue.length}`);
       //When done, remove from queue and go to the next one.
       this.queue.shift();
       if (this.queue.length > 0) {
         this.run(dirs);
       } else {
         console.log("Job finished");
+        this.count = 0;
       }
     });
   };
