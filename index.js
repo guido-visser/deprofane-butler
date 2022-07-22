@@ -14,6 +14,10 @@ const argv = yargs
     description: "Merge audio track of file(s)",
     type: "boolean",
   })
+  .option("deprofane", {
+    description: "Deprofane the give video",
+    type: "string",
+  })
   .help()
   .alias("help", "h").argv;
 
